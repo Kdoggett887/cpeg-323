@@ -70,7 +70,6 @@ void invert(unsigned int x, int p, int n){
         
         unsigned int invertedNum = x ^ inverter;
         
-        printf("%i \n", invertedNum);
         printBin(invertedNum, size(invertedNum));
     }
 }
@@ -94,8 +93,6 @@ int main(){
     
     //all works
     invert(var, 0, 2);
-    
-    printf("size is should be 4: %i", size(var));
     
     return 0;
 }
