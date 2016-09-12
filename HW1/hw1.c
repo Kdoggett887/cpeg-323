@@ -7,8 +7,7 @@ void print_bin(unsigned int x){
 
 
 //handles the inversion logic
-//has issue when p = 0... gets caught in infinte loop
-void invert(unsigned int x, unsigned int p, int n){
+void invert(unsigned int x, int p, int n){
     //generate number that needs to be xor'd with x
     //start building a binary number at position p
     unsigned int inverter = 0;
@@ -16,16 +15,17 @@ void invert(unsigned int x, unsigned int p, int n){
     //if n = 0, no bits are converted
     if (n > 0){
         //where to start building the number
-        unsigned int workingBit = n + p - 1;
+        int workingBit = n + p - 1;
         while(workingBit >= p){
             //define the exponent and what we will be adding to the inverter
-            unsigned int exponent = workingBit;
+            int exponent = workingBit;
             unsigned int addition = 1;
             
 
             while(exponent > 0){
                 addition = addition*2;    
                 exponent -= 1;
+                unsigned short test = exponent > 0;
             }
         
             //add the new binary digit to inverter
@@ -39,7 +39,6 @@ void invert(unsigned int x, unsigned int p, int n){
         
         print_bin(invertedNum);
     }
-    
 }
 
 
@@ -57,9 +56,10 @@ int main(){
     
     invert(var3, 1, 3);
     
-    //not working, getting caught in an infinte loop
-    //should ooutput 0b1100 or 12
-    //invert(var, 0, 2);
+    invert(var3, 0, 2);
+    
+    //all works
+    invert(var, 0, 2);
     
     return 0;
 }
