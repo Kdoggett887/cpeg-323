@@ -7,7 +7,7 @@ void printBin(int x, int size){
     printf("0b");
     
     int i;
-    for (i = 1 << size; i > 0; i = i/2){
+    for (i = 1 << size-1; i > 0; i = i/2){
         (x & i) ? printf("1") : printf("0");
     }
     
