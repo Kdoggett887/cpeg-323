@@ -1,8 +1,41 @@
 #include <stdio.h>
+#include <string.h> //dealing with binary output as strings
+
 
 //helper function to convert int to binary readout
-void print_bin(unsigned int x){
-    printf("%i \n", x);
+void printBin(int x, int size){
+    printf("0b");
+    
+    int i;
+    for (i = 1 << size; i > 0; i = i/2){
+        (x & i) ? printf("1") : printf("0");
+    }
+    
+    
+    printf("\n");
+}
+
+//find out how many bits are needed to represent number
+int size(unsigned int x){
+    short enoughBits = 0;
+    
+    int size = 1;
+    unsigned int maxRepresented = 2;
+    
+    
+    //loop through until we have enough bits
+    while (!enoughBits){
+        if (maxRepresented - 1 >= x){
+            enoughBits = 1;
+        }
+        else{
+            //increase maxRepresented and size
+            size++;
+            maxRepresented *= 2;
+        }
+    }
+    
+    return size;
 }
 
 
@@ -37,7 +70,8 @@ void invert(unsigned int x, int p, int n){
         
         unsigned int invertedNum = x ^ inverter;
         
-        print_bin(invertedNum);
+        printf("%i \n", invertedNum);
+        printBin(invertedNum, size(invertedNum));
     }
 }
 
@@ -60,6 +94,8 @@ int main(){
     
     //all works
     invert(var, 0, 2);
+    
+    printf("size is should be 4: %i", size(var));
     
     return 0;
 }
