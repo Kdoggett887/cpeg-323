@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <string.h> //dealing with binary output as strings
 
 
 //helper function to convert int to binary readout
@@ -93,6 +92,7 @@ int main(){
     
     //all works
     invert(var, 0, 2);
+    
     
     return 0;
 }
