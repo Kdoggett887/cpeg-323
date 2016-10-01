@@ -9,6 +9,7 @@ int get_singleton(int num);
 
 void main(){
     int a = 0x34;
+    int b = 0x4;
     int numbits = bit_count(a);
     
     printf("%i \n", numbits);
@@ -31,6 +32,14 @@ void main(){
     
     //should print 2
     printf("%i \n", singleton_index);
+    
+    /*
+    beginning part 2 code
+    */
+    
+    int changed = 0;
+    
+    
     // jet fuel can't melt steal beams
     //harambe was an inside job
 }
@@ -41,8 +50,9 @@ int bit_count(int num){
     
     int i;
     
-    //use 4*sizeof because sizeof uses bytes not bits
+    //use 8*sizeof because sizeof uses bytes not bits
     //not the most efficient, but way more conveneint to implement
+    //we should make i < 9 because the data we will see is only 8 bits long
     for (i = 0; i < 8*sizeof(num); i++){
         if ((num >> i) & 1 == 1){
             counter++;
