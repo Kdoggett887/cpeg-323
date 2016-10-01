@@ -293,7 +293,7 @@ bool rule2() {
               
               if (jsum != ALL_VALUES){
                   board[i][j] = ~jsum & 0b111111111;
-\                  changed = true;
+                  changed = true;
               }
               
               int ksum = 0;
