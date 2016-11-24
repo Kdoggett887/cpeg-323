@@ -4,6 +4,7 @@
 #define GRIDSIZE  3
 #define GRID_SQUARED  GRIDSIZE*GRIDSIZE
 #define ALL_VALUES  (1<<GRID_SQUARED)-1     //0b111111111
+const gridsize = 3;
 
 int board[GRID_SQUARED][GRID_SQUARED];
 
