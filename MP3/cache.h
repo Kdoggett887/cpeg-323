@@ -1,5 +1,5 @@
-#define BLOCK_SIZE 512   // FIXME
-#define NUM_SETS   250   // FIXME
+#define BLOCK_SIZE 512   // FIXME this is in bits, not sure if they want 2 or naw
+#define NUM_SETS   256   // FIXME
 
 typedef struct cache_block {
   unsigned tag;
