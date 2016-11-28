@@ -55,8 +55,6 @@ unsigned address_to_index(unsigned address) {
 bool find_block_and_update_lru(cache_t *cache, unsigned address, bool write) {
     unsigned tag = address_to_tag(address);
     unsigned index = address_to_index(address);
-    printf("%i \n", tag);
-    printf("%i \n", index);
 
     
     // FIXME
@@ -76,17 +74,15 @@ bool find_block_and_update_lru(cache_t *cache, unsigned address, bool write) {
     //check if it exists
     if(tag == set.blocks[0].tag){
       //update lru and hit counts
-      printf("gets into true part");
       set.lru = 1;
       cache->hits++;
       
       if(write){
+        //since we are using write-back, data is dirty until it is cleared from cache
         set.blocks[0].dirty = 1;
-        set.blocks[0].valid = 0;
-        cache->writebacks++;
+        set.blocks[0].valid = 1;
       }
       else{
-        set.blocks[0].dirty = 0;
         set.blocks[0].valid = 1;
       }
       
@@ -95,17 +91,14 @@ bool find_block_and_update_lru(cache_t *cache, unsigned address, bool write) {
       return true;
     }
     else if(tag == set.blocks[1].tag){
-      printf("gets into true part");
       set.lru = 0;
       cache->hits++;
       
       if(write){
         set.blocks[1].dirty = 1;
-        set.blocks[1].valid = 0;
-        cache->writebacks++;
+        set.blocks[1].valid = 1;
       }
       else{
-        set.blocks[1].dirty = 0;
         set.blocks[1].valid = 1;
       }
       
@@ -130,13 +123,19 @@ void fill_cache_with_block(cache_t *cache, unsigned address, bool write) {
   
   //write to lru
   cache_block_t block = set.blocks[set.lru];
+  
+  //check if data currently in there is dirty, increment writebacks if it is
+  if (block.dirty == 1){
+    cache->writebacks++;
+  }
+  
+  
   block.tag = tag;
   
   if(write){
     block.dirty = 1;
-    block.valid = 0;
-    cache->writebacks++;
-    
+    block.valid = 1;
+
     //need these last two lines because we duplicated objects
     set.blocks[set.lru] = block;
     set.lru ^= 1;
